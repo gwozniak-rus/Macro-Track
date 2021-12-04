@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  db:
+    image: mysql:5.7 # use latest official postgres version
+    restart: always
+    environment:
+      - MYSQL_DATABASE=macrotrack
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=password123
+      - MYSQL_ROOT_PASSWORD=password123
+    ports:
+      - "3307:3306"
+    volumes:
+      - macrotracker:/var/lib/mysql
+volumes:
+  macrotracker:
