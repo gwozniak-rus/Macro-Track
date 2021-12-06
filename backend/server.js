@@ -16,14 +16,15 @@ var con = mysql.createConnection({
 con.connect((err) => {
     if (err) throw err;
     console.log("MySQL Connected!");
-    con.query(`SELECT * FROM meals;`, (err, result) => {
-        if (err) throw err;
-        if (result) {
-            console.log('query successful!!!')
-        }
+    con.query(`SELECT *
+               FROM meals;`, (err, result) => {
+            if (err) throw err;
+            if (result) {
+                console.log('query successful!!!')
+            }
 
-        console.log("Created meals table");
-    }
+            console.log("Created meals table");
+        }
     )
 })
 
@@ -44,8 +45,8 @@ app.post('/post', (req, res) => {
     var sql = "INSERT INTO meals(name, calories, created_at, updated_at) VALUES (?, ?, NOW(), NOW())";
     con.query(sql, [req.body.name, req.body.calories], (err, result) => {
         if (err) throw err;
-        con.query('SELECT LAST_INSERT_ID() as id', (err, result) => {
-            res.send([{ status: "success" }, result[0]]);
+        con.query('SELECT * from meals ORDER BY id DESC LIMIT 1;', (err, result) => {
+            res.send([{status: "success", entry: result[0]}]);
         })
     });
 });
@@ -73,7 +74,7 @@ app.put('/update/:id', (req, res) => {
     console.log(sql, [req.body.name, req.body.calories, req.params.id]);
     con.query(sql, [req.body.name, req.body.calories, req.params.id], (err, result) => {
         if (err) throw err;
-        res.send({ status: "success" });
+        res.send({status: "success"});
     });
 })
 
@@ -82,6 +83,6 @@ app.get('/delete/:id', (req, res) => {
     var sql = "DELETE FROM meals WHERE id=?";
     con.query(sql, [req.params.id], (err, result) => {
         if (err) throw err;
-        res.send({ status: "success" });
+        res.send({status: "success"});
     });
 })

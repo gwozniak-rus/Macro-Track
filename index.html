@@ -18,24 +18,24 @@
 <body>
 <div class="container" data-url="/data">
     <div class="col-sm col-sm-offset-2 form-container">
-        <form>
+        <form action="", method="post" id="mealForm">
             <h2>Meal Information</h2>
             <div class="row">
                 <div class="mb-3">
                     <div class="form-group">
                         <label for="mealName">Meal Name</label>
-                        <input type="text" class="form-control" placeholder="" id="mealName">
+                        <input type="text" class="form-control form_data" placeholder="" id="mealName">
                         <div id="mealLevel" class="form-text">Enter Breakfast, Lunch, Dinner, or snack</div>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="calorie" class="form-label">Calories</label>
-                    <input type="number" class="form-control" id="calorie">
+                    <input type="number" class="form-control form_data" id="calorie">
                     <div id="instruction" class="form-text">Enter the amount of calories consumed for the meal.
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary" name="submit-btn" id="submit-btn">Submit</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()" name="submit-btn" id="submit-btn">Submit</button>
             </div>
         </form>
     </div>
