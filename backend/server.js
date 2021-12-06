@@ -15,13 +15,13 @@ con.connect((err) => {
     if (err) throw err;
     console.log("MySQL Connected!");
     con.query(`SELECT * FROM meals;`, (err, result) => {
-            if (err) throw err;
-            if (result) {
-               console.log('query successful!!!')
-            }
-
-            console.log("Created meals table");
+        if (err) throw err;
+        if (result) {
+            console.log('query successful!!!')
         }
+
+        console.log("Created meals table");
+    }
     )
 })
 
@@ -35,11 +35,12 @@ app.listen(3000, () => {
 });
 
 //ROUTES
-// app.get(path, callback)
-// DISPLAY FORM
+app.get(path, callback)
+//DISPLAY FORM
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
+
 
 // CREATE
 app.post('/post', (req, res) => {
@@ -47,7 +48,7 @@ app.post('/post', (req, res) => {
     con.query(sql, [req.body.name, req.body.calories], (err, result) => {
         if (err) throw err;
         con.query('SELECT LAST_INSERT_ID() as id', (err, result) => {
-            res.send([{status: "success"}, result[0]]);
+            res.send([{ status: "success" }, result[0]]);
         })
     });
 });
@@ -75,7 +76,7 @@ app.put('/update/:id', (req, res) => {
     console.log(sql, [req.body.name, req.body.calories, req.params.id]);
     con.query(sql, [req.body.name, req.body.calories, req.params.id], (err, result) => {
         if (err) throw err;
-        res.send({status: "success"});
+        res.send({ status: "success" });
     });
 })
 
@@ -84,6 +85,6 @@ app.get('/delete/:id', (req, res) => {
     var sql = "DELETE FROM meals WHERE id=?";
     con.query(sql, [req.params.id], (err, result) => {
         if (err) throw err;
-        res.send({status: "success"});
+        res.send({ status: "success" });
     });
 })
