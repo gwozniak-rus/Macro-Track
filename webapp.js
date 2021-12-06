@@ -44,7 +44,7 @@
         axios.post('http://localhost:3000/post', entry).then(response => {
             const addedUser = response.data;
             console.log(`POST: user is added`, addedUser);
-             appendToDOM(addedUser[0].entry);
+            appendToDOM(addedUser[0].entry);
 
         })
             .catch(error => console.error(error));
@@ -52,8 +52,8 @@
 
 
     function submitForm() {
-        const mealName = document.getElementById('mealName').value;
-        const calorie = document.getElementById('calorie').value;
+        let mealName = document.getElementById('mealName').value;
+        let calorie = document.getElementById('calorie').value;
 
         const newEntry = {
             name: mealName,
@@ -61,8 +61,8 @@
         };
 
         createEntry(newEntry);
-
-
+        document.getElementById('mealName').value = '';
+        document.getElementById('calorie').value = '';
     }
 
     // call the function

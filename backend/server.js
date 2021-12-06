@@ -41,7 +41,7 @@ app.listen(3000, () => {
 app.options('*', cors()) // include before other routes
 
 // CREATE
-app.post('/post', (req, res) => {
+app.post('/entry', (req, res) => {
     var sql = "INSERT INTO meals(name, calories, created_at, updated_at) VALUES (?, ?, NOW(), NOW())";
     con.query(sql, [req.body.name, req.body.calories], (err, result) => {
         if (err) throw err;
@@ -52,7 +52,7 @@ app.post('/post', (req, res) => {
 });
 
 // READ ALL
-app.get('/get', (req, res) => {
+app.get('/entry', (req, res) => {
     con.query("SELECT * FROM meals", (err, result, fields) => {
         if (err) throw err;
         res.send(result);
@@ -60,7 +60,7 @@ app.get('/get', (req, res) => {
 });
 
 // READ ONE
-app.get('/get/:id', (req, res) => {
+app.get('/entry/:id', (req, res) => {
     let sql = "SELECT * FROM meals WHERE id=?";
     con.query(sql, [req.params.id], (err, result) => {
         if (err) throw err;
@@ -69,7 +69,7 @@ app.get('/get/:id', (req, res) => {
 });
 
 // UPDATE
-app.put('/update/:id', (req, res) => {
+app.put('/entry/:id', (req, res) => {
     var sql = "UPDATE meals SET name=?, calories=?, updated_at=NOW() WHERE id=?";
     console.log(sql, [req.body.name, req.body.calories, req.params.id]);
     con.query(sql, [req.body.name, req.body.calories, req.params.id], (err, result) => {
