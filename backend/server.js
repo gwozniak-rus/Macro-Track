@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors')
+
 const app = express();
 var mysql = require('mysql');
 
@@ -29,18 +31,13 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.listen(3000, () => {
     console.log('listening on 3000');
 });
 
-//ROUTES
-app.get(path, callback)
-//DISPLAY FORM
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
-
+app.options('*', cors()) // include before other routes
 
 // CREATE
 app.post('/post', (req, res) => {

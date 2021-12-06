@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node webapp.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cors": "^2.8.5",
     "express": "^4.15.4",
     "mysql": "^2.14.1"
   },

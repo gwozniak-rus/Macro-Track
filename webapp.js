@@ -1,58 +1,29 @@
 {
-    function populateTable(root) {
-        console.log("hi");
 
-    }
+    const getEntries = () => {
+        axios.get('http://localhost:3000/get')
+            .then(response => {
+                const entries = response.data;
+                console.table(entries);
+                let table = document.getElementById('calorieTable');
+                let row, cell;
 
-    /////// hold mealname and calorie and push into the table
-    // const mealName = document.createElement("meal-name");
-    //const calorie = document.createElement("meal-calorie");
-
-
-
-
-
-    for (const root of document.querySelectorAll(".container[data-url]")) {
-        const table = document.createElement("table");
-        const mealName = document.createElement("meal-name");
-        const calorie = document.createElement("meal-calorie");
-
-        table.classList.add("container-table");
-        mealName.classList.add("container-meal-name");
-        calorie.classList.add("container-meal-calorie");
-
-        document.getElementById("submit-btn").onclick = function () {
-            document.getElementById("table");
-            document.getElementById("mealName");
-            document.getElementById("calorie");
-        };
-
-        table.innerHTML = `
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>breakfast</td>
-                        <td>1500</td>
-                        <td>11/28</td>
-                    </tr>
-                </tbody>
-                `;
+                for (let i = 0; i < entries.length; i++) {
+                    row = table.insertRow();
+                    cell = row.insertCell();
+                    cell.textContent = entries[i].id;
+                    cell = row.insertCell();
+                    cell.textContent = entries[i].name;
+                    cell = row.insertCell();
+                    cell.textContent = entries[i].calories;
+                    cell = row.insertCell();
+                    cell.textContent = new Date(entries[i].created_at).toString();
+                }
+            })
+            .catch(error => console.error(error));
+    };
 
 
-
-        //add event listener for the submit button
-        //populate table with data
-
-        //submit.querySelector(".submit-button").addEventListener("click", () => {
-        //   populateTable(root);
-
-        //});
-        root.append(table, mealName, calorie);
-
-
-        populateTable(root);
-    }
+    // call the function
+    getEntries();
 }
